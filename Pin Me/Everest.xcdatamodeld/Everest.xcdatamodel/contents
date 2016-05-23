@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A284" minimumToolsVersion="Automatic">
+    <entity name="FlickrPhoto" representedClassName="FlickrPhoto" syncable="YES">
+        <attribute name="flickrPhotoFilePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flikcrPhotoURL" attributeType="String" syncable="YES"/>
+        <relationship name="pin" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="photos" inverseEntity="Pin" syncable="YES"/>
+    </entity>
+    <entity name="FoursquarePhotoForVenue" representedClassName="FoursquarePhotoForVenue" syncable="YES">
+        <attribute name="resolvablePhotoFilePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resolvablePhotoUrl" attributeType="String" syncable="YES"/>
+        <relationship name="foursquareVenue" maxCount="1" deletionRule="Nullify" destinationEntity="FoursquareVenue" inverseName="photosForVenues" inverseEntity="FoursquareVenue" syncable="YES"/>
+    </entity>
+    <entity name="FoursquareVenue" representedClassName="FoursquareVenue" syncable="YES">
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photosCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="venueName" attributeType="String" syncable="YES"/>
+        <attribute name="venuePhotoUrlString" attributeType="String" syncable="YES"/>
+        <relationship name="photosForVenues" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="FoursquarePhotoForVenue" inverseName="foursquareVenue" inverseEntity="FoursquarePhotoForVenue" syncable="YES"/>
+        <relationship name="pin" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="venues" inverseEntity="Pin" syncable="YES"/>
+    </entity>
+    <entity name="Pin" representedClassName="Pin" syncable="YES">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="numberOfPagesReturned" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="FlickrPhoto" inverseName="pin" inverseEntity="FlickrPhoto" syncable="YES"/>
+        <relationship name="venues" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="FoursquareVenue" inverseName="pin" inverseEntity="FoursquareVenue" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FlickrPhoto" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="FoursquarePhotoForVenue" positionX="-45" positionY="54" width="128" height="90"/>
+        <element name="FoursquareVenue" positionX="-63" positionY="27" width="128" height="135"/>
+        <element name="Pin" positionX="-54" positionY="-9" width="128" height="120"/>
+    </elements>
+</model>
