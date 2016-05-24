@@ -17,7 +17,7 @@ class PinExplorer: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tapToDeletePinsLabel: UILabel!
     @IBOutlet var longPress: UILongPressGestureRecognizer!
-    
+    var activityIndicator  : UIActivityIndicatorView?
     
     
     var deleteButton: UIBarButtonItem?
@@ -44,6 +44,12 @@ class PinExplorer: UIViewController, MKMapViewDelegate {
         
         // Set the Delete button to be the system-editButtonItem
         deleteButton = editButtonItem()
+        
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+        activityIndicator!.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        view.addSubview(activityIndicator!)
+        
+        
         
        
         navigationItem.rightBarButtonItem = deleteButton
@@ -86,8 +92,10 @@ class PinExplorer: UIViewController, MKMapViewDelegate {
             //When the user drops the pin, store it for error handling, fetch the associated
             //photos and finally save it to Core Data.
         case .Ended:
+            
             lastPinDropped = pinToBeAdded
             // Download Photos from flickr
+            activityIndicator?.startAnimating()
             downloadPhotosForPin(lastPinDropped!)
             // And venues from foursquare
             downloadVenuesForPin(lastPinDropped!)
