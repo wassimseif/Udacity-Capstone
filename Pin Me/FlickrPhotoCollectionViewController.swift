@@ -25,6 +25,7 @@ class FlickrPhotoCollectionViewController: UIViewController {
     var insertedIndexPaths : [NSIndexPath]!
     var deletedIndexPaths  : [NSIndexPath]!
     var updatedIndexPaths  : [NSIndexPath]!
+    var didLoad : Bool = false
     
     //Pin received from MapViewController
     var receivedPin: Pin!
@@ -114,8 +115,7 @@ class FlickrPhotoCollectionViewController: UIViewController {
             } catch let error as NSError {
                 
                     alertUserWithTitle("Error",
-                        message: "There was an error retreiving saved photos, error is: \(error.localizedDescription)",
-                        retry: false)
+                        message: "There was an error retreiving saved photos, error is: \(error.localizedDescription)")
                 }
         
         //If there are no images associated with the pin, show label to user and disable newCollectionButton
@@ -140,7 +140,12 @@ class FlickrPhotoCollectionViewController: UIViewController {
         layout.itemSize = CGSize(width: width, height: width)
         collectionView.collectionViewLayout = layout
     }
-
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if !didLoad {
+        getNewPhotoSet()
+        }
+    }
     
     //MARK: - Helper functions
     
@@ -202,6 +207,7 @@ class FlickrPhotoCollectionViewController: UIViewController {
     func getNewPhotoSet() {
         
         //Disable button to prevent spamming.
+        didLoad = true
         newCollectionButton.enabled = false
         
         //Delete the existing photos...
@@ -230,40 +236,14 @@ class FlickrPhotoCollectionViewController: UIViewController {
                 
                 //Give the user an alert and retry option, renable the newCollectionButton in case user doesn't retry
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.alertUserWithTitle("Error", message: error!.localizedDescription, retry: true)
+                    self.alertUserWithTitle("Error2", message: error!.localizedDescription)
                     self.newCollectionButton.enabled = true
                 })
             }
         })
     }
     
-    func alertUserWithTitle(title: String, message: String, retry: Bool) {
-        
-        //Create alert and show it to user.
-        let alert = UIAlertController(title: title,
-            message: message,
-            preferredStyle: .Alert)
-        
-        let okAction = UIAlertAction(title: "OK",
-            style: .Default,
-            handler: nil)
-        
-        if retry {
-            
-            let retryAction = UIAlertAction(title: "Retry",
-                style: .Destructive,
-                handler: {
-                    action in
-                    
-                    self.getNewPhotoSet()
-            })
-            alert.addAction(retryAction)
-        }
-        
-        alert.addAction(okAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
+
 }
 
 

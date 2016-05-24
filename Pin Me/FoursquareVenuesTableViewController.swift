@@ -61,7 +61,7 @@ class FoursquareVenuesTableViewController: UITableViewController  {
         }
         
         if error != nil {
-            print("Error retreving saved Venues, its \(error.debugDescription)")
+           alertUserWithTitle("Error retreving saved Venues", message: error.debugDescription)
         }
         
         return results as! [FoursquareVenue]
@@ -81,7 +81,7 @@ class FoursquareVenuesTableViewController: UITableViewController  {
         }
         
         if error != nil {
-            print("There was an error reteriving Photos images for this venue, its: \(error.debugDescription)")
+            alertUserWithTitle("Error", message: error.debugDescription)
         }
         
         return results as! [FoursquarePhotoForVenue]

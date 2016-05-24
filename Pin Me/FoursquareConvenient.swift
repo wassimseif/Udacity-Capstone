@@ -95,7 +95,7 @@ extension FoursquareClient {
             data, response, downloadError in
             
             if let error = downloadError {
-                print("There was an error downloading Photos response, its: \(error.localizedDescription)")
+                
                 completionHandler(success: false, error: error)
             } else {
                 // Parse the received JSON response to extract the downloaded Photos

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1149A2351CF4C3CF0046DF85 /* AlertViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1149A2341CF4C3CF0046DF85 /* AlertViewExtension.swift */; };
 		B200DC5C1BA618380084A8F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200DC5B1BA618380084A8F6 /* AppDelegate.swift */; };
 		B200DC5F1BA618380084A8F6 /* Everest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B200DC5D1BA618380084A8F6 /* Everest.xcdatamodeld */; };
 		B200DC641BA618380084A8F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B200DC621BA618380084A8F6 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1149A2341CF4C3CF0046DF85 /* AlertViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewExtension.swift; sourceTree = "<group>"; };
 		B200DC561BA618380084A8F6 /* Everest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B200DC5A1BA618380084A8F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B200DC5B1BA618380084A8F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				B266DCC21BDA64FB008AC735 /* PinExplorer.swift */,
 				B2E18C6D1BC486CA00842772 /* FlickrPhotoCollectionViewController.swift */,
 				B28959EA1BCE7BC0007BBABD /* FoursquareVenuesTableViewController.swift */,
+				1149A2341CF4C3CF0046DF85 /* AlertViewExtension.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2E18C6C1BC485E000842772 /* FlickrPhotoCollectionViewCell.swift in Sources */,
+				1149A2351CF4C3CF0046DF85 /* AlertViewExtension.swift in Sources */,
 				B266DCC51BDA653E008AC735 /* Pin.swift in Sources */,
 				B200DC8B1BA623080084A8F6 /* FlickrConstants.swift in Sources */,
 				B200DC861BA620080084A8F6 /* FlickrPhoto.swift in Sources */,
