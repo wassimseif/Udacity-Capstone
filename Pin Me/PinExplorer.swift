@@ -155,6 +155,7 @@ class PinExplorer: UIViewController, MKMapViewDelegate {
         // Call flickr client
         FlickrClient.sharedInstance.downloadPhotosForPin(pin, completionHandler: {
             success, error in
+            self.activityIndicator?.stopAnimating()
             if success {
                 // Save the new FlickrPhoto objects to Core Data
                 dispatch_async(dispatch_get_main_queue(), {
@@ -176,6 +177,7 @@ class PinExplorer: UIViewController, MKMapViewDelegate {
         // Call foursquare client
         FoursquareClient.sharedInstance.downloadVenuesForPin(pin, completionHandler: {
             success, error in
+            self.activityIndicator?.stopAnimating()
             if success {
                 // Save the new FoursquareVenue objects to Core Data
                 dispatch_async(dispatch_get_main_queue(), {

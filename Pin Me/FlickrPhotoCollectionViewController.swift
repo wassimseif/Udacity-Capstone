@@ -214,10 +214,10 @@ class FlickrPhotoCollectionViewController: UIViewController {
         CoreDataStackManager.sharedInstance.saveContext()
         
         //...and get a new set of photos from Flickr.
-        self.activityIndicator?.stopAnimating()
+        
         FlickrClient.sharedInstance.downloadPhotosForPin(receivedPin, completionHandler: {
             success, error in
-            self.activityIndicator?.stopAnimating()
+        
             if success {
                 
                 
@@ -361,7 +361,7 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
         if let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo? {
             
             //...and return the number of items in the section...
-            self.activityIndicator?.stopAnimating()
+           
             return sectionInfo.numberOfObjects
         }
         
