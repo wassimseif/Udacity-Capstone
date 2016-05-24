@@ -95,10 +95,10 @@ class PinExplorer: UIViewController, MKMapViewDelegate {
             
             lastPinDropped = pinToBeAdded
             // Download Photos from flickr
-            activityIndicator?.startAnimating()
             downloadPhotosForPin(lastPinDropped!)
             // And venues from foursquare
             downloadVenuesForPin(lastPinDropped!)
+            activityIndicator?.startAnimating()
             CoreDataStackManager.sharedInstance.saveContext()
             
         default:

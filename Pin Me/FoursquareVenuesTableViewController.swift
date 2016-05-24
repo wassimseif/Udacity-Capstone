@@ -13,25 +13,36 @@ class FoursquareVenuesTableViewController: UITableViewController  {
     //Pin received from MapViewController
     var receivedPin: Pin!
     var refreshControlForTable: UIRefreshControl!
+    var activityIndicator : UIActivityIndicatorView!
     
     //MARK: Core Data convenience
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance.managedObjectContext!
     }
     
+
     override func viewDidLoad() {
-        tableView.reloadData()
-        self.navigationController?.navigationBar.translucent = false
-        
-        refreshControlForTable = UIRefreshControl()
-        refreshControlForTable?.addTarget(self, action: #selector(FoursquareVenuesTableViewController.refresh), forControlEvents: .AllEvents)
        
-        tableView.addSubview(refreshControlForTable!)
     }
 
     // Reload tableView once view is appeared
     override func viewWillAppear(animated: Bool) {
+        tableView.reloadData()
+        
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+        activityIndicator.frame = CGRect(origin: view.center, size: CGSize(width: 50, height: 50))
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
+        self.navigationController?.navigationBar.translucent = false
+        
+        refreshControlForTable = UIRefreshControl()
+        refreshControlForTable?.addTarget(self, action: #selector(FoursquareVenuesTableViewController.refresh), forControlEvents: .AllEvents)
+        
+        tableView.addSubview(refreshControlForTable!)
+        
     }
+    
     
     // Function to fetchAllVenues from CoreData, that matches the received Pin
     func fetchAllVenues() -> [FoursquareVenue] {
@@ -77,7 +88,10 @@ class FoursquareVenuesTableViewController: UITableViewController  {
     }
 
     func refresh(){
+        fetchAllVenues()
+        fetchAllPhotosForVenue()
         tableView.reloadData()
+        refreshControlForTable.endRefreshing()
     }
     
 }

@@ -93,7 +93,7 @@ class FlickrPhotoCollectionViewController: UIViewController {
         mapView.userInteractionEnabled = false
         
          activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
-        activityIndicator!.frame = CGRectMake(0, 0 , 50, 50)
+        activityIndicator!.frame = CGRectMake(0, 0 , 200, 200)
         collectionView.addSubview(activityIndicator!)
         
         
