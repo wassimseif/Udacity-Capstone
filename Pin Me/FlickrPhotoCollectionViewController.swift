@@ -28,7 +28,7 @@ class FlickrPhotoCollectionViewController: UIViewController {
     
     //Pin received from MapViewController
     var receivedPin: Pin!
-    
+    var activityIndicator  : UIActivityIndicatorView?
     @IBAction func newCollectionButtonTapped(sender: UIButton) {
         
         //If no photos are selected...
@@ -78,6 +78,7 @@ class FlickrPhotoCollectionViewController: UIViewController {
             cacheName: nil)
         
         fetchedResultsController.delegate = self
+
         
         return fetchedResultsController
         }()
@@ -91,6 +92,14 @@ class FlickrPhotoCollectionViewController: UIViewController {
         mapView.delegate = self
         mapView.userInteractionEnabled = false
         
+         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+        activityIndicator!.frame = CGRectMake(0, 0 , 50, 50)
+        collectionView.addSubview(activityIndicator!)
+        
+        
+        activityIndicator!.startAnimating()
+        
+        
         //Update mapView based on the user's pin
         mapView.addAnnotation(receivedPin)
         centerMapOnPin(receivedPin)
@@ -100,8 +109,10 @@ class FlickrPhotoCollectionViewController: UIViewController {
         
         //Perform initial fetch
         do {
+            
             try fetchedResultsController.performFetch()
             } catch let error as NSError {
+                
                     alertUserWithTitle("Error",
                         message: "There was an error retreiving saved photos, error is: \(error.localizedDescription)",
                         retry: false)
@@ -180,7 +191,7 @@ class FlickrPhotoCollectionViewController: UIViewController {
         //Get image for photo object, and save the context
         FlickrClient.sharedInstance.getImageForPhoto(photo, completionHandler: {
             success, error in
-            
+            self.activityIndicator?.stopAnimating()
             dispatch_async(dispatch_get_main_queue(), {
                 CoreDataStackManager.sharedInstance.saveContext()
             })
@@ -203,10 +214,12 @@ class FlickrPhotoCollectionViewController: UIViewController {
         CoreDataStackManager.sharedInstance.saveContext()
         
         //...and get a new set of photos from Flickr.
+        self.activityIndicator?.stopAnimating()
         FlickrClient.sharedInstance.downloadPhotosForPin(receivedPin, completionHandler: {
             success, error in
-            
+            self.activityIndicator?.stopAnimating()
             if success {
+                
                 
                 //Save the context and enable the newCollectionButton
                 dispatch_async(dispatch_get_main_queue(), {
@@ -348,6 +361,7 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
         if let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo? {
             
             //...and return the number of items in the section...
+            self.activityIndicator?.stopAnimating()
             return sectionInfo.numberOfObjects
         }
         

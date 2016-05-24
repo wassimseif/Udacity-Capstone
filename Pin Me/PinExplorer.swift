@@ -286,7 +286,7 @@ class PinExplorer: UIViewController, MKMapViewDelegate {
             // Pass the pin to both tabBarVCs
             photoCVC.receivedPin = pin
             foursquareTVC.receivedPin = pin
-            
+            mapView.deselectAnnotation(view.annotation!, animated: true)
             // then push the tabBarViewController
             self.navigationController?.pushViewController(tabBar, animated: true)
         }

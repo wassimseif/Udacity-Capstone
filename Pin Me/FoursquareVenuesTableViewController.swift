@@ -12,7 +12,7 @@ class FoursquareVenuesTableViewController: UITableViewController  {
     
     //Pin received from MapViewController
     var receivedPin: Pin!
-    
+    var refreshControlForTable: UIRefreshControl!
     
     //MARK: Core Data convenience
     var sharedContext: NSManagedObjectContext {
@@ -22,6 +22,11 @@ class FoursquareVenuesTableViewController: UITableViewController  {
     override func viewDidLoad() {
         tableView.reloadData()
         self.navigationController?.navigationBar.translucent = false
+        
+        refreshControlForTable = UIRefreshControl()
+        refreshControlForTable?.addTarget(self, action: #selector(FoursquareVenuesTableViewController.refresh), forControlEvents: .AllEvents)
+       
+        tableView.addSubview(refreshControlForTable!)
     }
 
     // Reload tableView once view is appeared
@@ -71,6 +76,9 @@ class FoursquareVenuesTableViewController: UITableViewController  {
         return results as! [FoursquarePhotoForVenue]
     }
 
+    func refresh(){
+        tableView.reloadData()
+    }
     
 }
 
